@@ -41,6 +41,7 @@
                 }
               ],
               "optimization": true,
+              "outputPath": "C:\\Projects\\josh-yates.github.io\\gpx-app",
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
