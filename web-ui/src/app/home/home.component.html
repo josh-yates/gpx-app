@@ -1,6 +1,6 @@
 <form>
-  <input id="file-attach" type="file" hidden/>
-  <label class="button" for="file-attach">
+  <input id="fileAttach" type="file" hidden (change)="fileChange($event)"/>
+  <label class="button" for="fileAttach">
     Upload
   </label>
 </form>
