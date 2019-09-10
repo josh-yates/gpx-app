@@ -16,6 +16,7 @@ export class HomeComponent {
   public isLoading = false;
   public selectedFile: File = null;
   private readonly fileReader = new FileReader();
+  private readonly xmlParser = new DOMParser();
 
   public fileChange($event: Event): void {
     const fileInputElement = $event.target as HTMLInputElement;
@@ -41,7 +42,9 @@ export class HomeComponent {
 
   private onFileLoadEnd(): void {
     this.isLoading = false;
-    const xmlFile = this.fileReader.result;
-    console.log(xmlFile);
+    const xmlFileString = this.fileReader.result as string;
+    const xmlDOM = this.xmlParser.parseFromString(xmlFileString, 'text/xml');
+
+    console.log(xmlDOM.getElementsByTagName('wpt'));
   }
 }
