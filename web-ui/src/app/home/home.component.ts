@@ -8,10 +8,19 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 export class HomeComponent {
   constructor() { }
 
+  public readonly acceptedExtensions = [
+    '.xml',
+    '.gpx'
+  ];
+
+  public selectedFile: File = null;
+
   public fileChange($event: Event): void {
     const fileInputElement = $event.target as HTMLInputElement;
 
-    console.log(fileInputElement.files);
+    const isValidFile = fileInputElement.files.length && this.acceptedExtensions.indexOf(`.${(fileInputElement.files[0]).name}`) >= 0;
+
+    this.selectedFile = isValidFile ? fileInputElement.files[0] : null;
   }
 
 }

@@ -1,8 +1,8 @@
 <form>
-  <input id="fileAttach" type="file" hidden (change)="fileChange($event)"/>
+  <input id="fileAttach" type="file" hidden (change)="fileChange($event)" [accept]="acceptedExtensions"/>
   <label class="button" for="fileAttach">
     Upload
   </label>
 </form>
-<p class="weak-text">No file selected</p>
-<button class="button">Submit</button>
+<p class="weak-text">{{ selectedFile ? selectedFile.name : 'No file selected'}}</p>
+<button class="button" [disabled]="!selectedFile">Submit</button>

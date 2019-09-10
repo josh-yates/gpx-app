@@ -42,6 +42,11 @@ button {
   cursor: pointer;
   font-weight: 600;
   display: inline-block;
+
+  &[disabled] {
+    opacity: 0.6;
+    cursor: default;
+  }
 }
 
 .weak-text {
