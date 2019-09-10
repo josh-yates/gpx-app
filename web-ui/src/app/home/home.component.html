@@ -1,8 +1,12 @@
-<form>
-  <input id="fileAttach" type="file" hidden (change)="fileChange($event)" [accept]="acceptedExtensions"/>
-  <label class="button" for="fileAttach">
-    Upload
-  </label>
-</form>
-<p class="weak-text">{{ selectedFile ? selectedFile.name : 'No file selected'}}</p>
-<button class="button" [disabled]="!selectedFile">Submit</button>
+<p *ngIf="isLoading; else fileForm">Loading...</p>
+<ng-template #fileForm>
+    <p>Please attach a .gpx or .xml file for converting.</p>
+    <form>
+      <input id="fileAttach" type="file" hidden (change)="fileChange($event)" [accept]="acceptedExtensions"/>
+      <label class="button" for="fileAttach">
+        Upload
+      </label>
+    </form>
+    <p class="weak-text">{{ selectedFile ? selectedFile.name : 'No file selected'}}</p>
+    <button class="button" [disabled]="!selectedFile" (click)="submit()">Next</button>
+</ng-template>
