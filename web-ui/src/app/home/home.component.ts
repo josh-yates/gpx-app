@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { XmlParserService } from '../services/xml-parser.service';
+import { DataExtractorService } from '../services/data-extractor.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,7 @@ import { XmlParserService } from '../services/xml-parser.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  constructor(private readonly xmlService: XmlParserService) { }
+  constructor(private readonly xmlService: XmlParserService, private readonly dataService: DataExtractorService) { }
 
   public readonly acceptedExtensions = [
     '.xml',
@@ -44,5 +45,12 @@ export class HomeComponent {
     this.isLoading = false;
     const xmlFileString = this.fileReader.result as string;
     const xmlDOM = this.xmlService.textToXmlDOM(xmlFileString);
+    
+    const wayPointEls = xmlDOM.getElementsByTagName('wpt');
+    console.log(wayPointEls.length);
+
+    for (let i = 500; i < 520; i++) {
+      console.log(this.dataService.getWaypoint(wayPointEls.item(i)));
+    }
   }
 }
