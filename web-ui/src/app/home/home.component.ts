@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { XmlParserService } from '../services/xml-parser.service';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +7,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  constructor() { }
+  constructor(private readonly xmlService: XmlParserService) { }
 
   public readonly acceptedExtensions = [
     '.xml',
@@ -16,7 +17,6 @@ export class HomeComponent {
   public isLoading = false;
   public selectedFile: File = null;
   private readonly fileReader = new FileReader();
-  private readonly xmlParser = new DOMParser();
 
   public fileChange($event: Event): void {
     const fileInputElement = $event.target as HTMLInputElement;
@@ -43,8 +43,6 @@ export class HomeComponent {
   private onFileLoadEnd(): void {
     this.isLoading = false;
     const xmlFileString = this.fileReader.result as string;
-    const xmlDOM = this.xmlParser.parseFromString(xmlFileString, 'text/xml');
-
-    console.log(xmlDOM.getElementsByTagName('wpt'));
+    const xmlDOM = this.xmlService.textToXmlDOM(xmlFileString);
   }
 }
