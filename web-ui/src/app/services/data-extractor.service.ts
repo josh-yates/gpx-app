@@ -19,4 +19,14 @@ export class DataExtractorService {
       name: nameElements.length ? nameElements[0].textContent : ''
     } as Waypoint;
   }
+
+  public getWaypointsFromElements(elements: HTMLCollectionOf<Element>): Waypoint[] {
+    const waypoints: Waypoint[] = [];
+
+    for (let i = 0; i < elements.length; i++) {
+      waypoints[i] = this.getWaypoint(elements[i]);
+    }
+
+    return waypoints;
+  }
 }

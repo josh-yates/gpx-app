@@ -42,15 +42,13 @@ export class HomeComponent {
   }
 
   private onFileLoadEnd(): void {
-    this.isLoading = false;
     const xmlFileString = this.fileReader.result as string;
     const xmlDOM = this.xmlService.textToXmlDOM(xmlFileString);
-    
-    const wayPointEls = xmlDOM.getElementsByTagName('wpt');
-    console.log(wayPointEls.length);
 
-    for (let i = 500; i < 520; i++) {
-      console.log(this.dataService.getWaypoint(wayPointEls.item(i)));
-    }
+    const waypointEls = xmlDOM.getElementsByTagName('wpt');
+    const waypoints = this.dataService.getWaypointsFromElements(waypointEls);
+
+    console.log(waypoints.map(w => w.name));
+    this.isLoading = false;
   }
 }
