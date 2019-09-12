@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { XmlParserService } from '../services/xml-parser.service';
 import { DataExtractorService } from '../services/data-extractor.service';
 import { Router } from '@angular/router';
+import { DataStoreService } from '../services/data-store.service';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ export class HomeComponent {
   constructor(
     private readonly xmlService: XmlParserService,
     private readonly dataService: DataExtractorService,
+    private readonly storeService: DataStoreService,
     private readonly router: Router) { }
 
   public readonly acceptedExtensions = [
@@ -52,7 +54,8 @@ export class HomeComponent {
     const waypointEls = xmlDOM.getElementsByTagName('wpt');
     const waypoints = this.dataService.getWaypointsFromElements(waypointEls);
 
-    console.log(waypoints.map(w => w.name));
+    this.storeService.store(waypoints);
+
     this.router.navigateByUrl('/results');
     this.isLoading = false;
   }
