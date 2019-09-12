@@ -34,7 +34,7 @@ button {
   -webkit-appearance: none;
 }
 
-.button {
+.button, .link {
   border-radius: 4px;
   padding: .8rem 1rem;
   background: #00ccff;
@@ -51,4 +51,8 @@ button {
 
 .weak-text {
   color: #999;
+}
+
+.link {
+  text-decoration: none;
 }

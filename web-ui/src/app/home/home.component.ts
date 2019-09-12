@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { XmlParserService } from '../services/xml-parser.service';
 import { DataExtractorService } from '../services/data-extractor.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,10 @@ import { DataExtractorService } from '../services/data-extractor.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  constructor(private readonly xmlService: XmlParserService, private readonly dataService: DataExtractorService) { }
+  constructor(
+    private readonly xmlService: XmlParserService,
+    private readonly dataService: DataExtractorService,
+    private readonly router: Router) { }
 
   public readonly acceptedExtensions = [
     '.xml',
@@ -49,6 +53,7 @@ export class HomeComponent {
     const waypoints = this.dataService.getWaypointsFromElements(waypointEls);
 
     console.log(waypoints.map(w => w.name));
+    this.router.navigateByUrl('/results');
     this.isLoading = false;
   }
 }
