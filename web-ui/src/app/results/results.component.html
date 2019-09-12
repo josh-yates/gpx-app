@@ -1,1 +1,31 @@
 <a class="link" href="/">< Back</a>
+<h2>Waypoints</h2>
+<div class="listing-container">
+    <table class="listing">
+        <colgroup>
+            <col />
+            <col />
+            <col />
+        </colgroup>
+        <thead>
+            <tr class="row thead-row">
+                <th class="cell th-cell">Name</th>
+                <th class="cell th-cell">Latitude</th>
+                <th class="cell th-cell">Longitude</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let wpt of visibleWaypoints" class="row tbody-row selectable" [class.selected]="wpt === selectedWaypoint" (click)="select(wpt)">
+                <td class="cell td-cell">{{wpt.name}}</td>
+                <td class="cell td-cell">{{wpt.latitude}}</td>
+                <td class="cell td-cell">{{wpt.longitude}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <div class="pager">
+        <button class="button" (click)="decrementPage()"><</button>
+        <span class="pager-label">Page {{(pageNumber | async) + 1}} of {{totalPageCount}}</span>
+        <button class="button" (click)="incrementPage()">></button>
+    </div>
+</div>

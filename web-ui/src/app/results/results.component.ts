@@ -14,13 +14,14 @@ export class ResultsComponent implements OnInit, OnDestroy {
   constructor(private readonly storeService: DataStoreService) { }
 
   private fullWaypoints: Waypoint[] = [];
-  private readonly pageSize = 10;
+  private readonly pageSize = 20;
   private readonly destroy$ = new Subject();
 
   public pageNumber = new BehaviorSubject<number>(0);
-  public totalPageCount = 0;
+  public totalPageCount = 1;
   public isLoading = true;
   public visibleWaypoints: Waypoint[] = [];
+  public selectedWaypoint: Waypoint = null;
 
   public ngOnInit(): void {
     this.fullWaypoints = this.storeService.retrieve();
@@ -30,7 +31,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy$))
     .subscribe((currentPage: number) => {
       this.totalPageCount = Math.ceil(this.fullWaypoints.length / this.pageSize);
-      this.visibleWaypoints = this.fullWaypoints.slice(this.totalPageCount * currentPage, this.totalPageCount);
+      
+      const start = this.pageSize * currentPage;
+      this.visibleWaypoints = this.fullWaypoints.slice(start, start + this.pageSize);
     });
 
     this.isLoading = false;
@@ -51,6 +54,14 @@ export class ResultsComponent implements OnInit, OnDestroy {
     const currentPage = this.pageNumber.value;
     if (currentPage > 0) {
       this.pageNumber.next(currentPage - 1);
+    }
+  }
+
+  public select(wpt: Waypoint): void {
+    if (wpt === this.selectedWaypoint) {
+      this.selectedWaypoint = null;
+    } else {
+      this.selectedWaypoint = wpt;
     }
   }
 

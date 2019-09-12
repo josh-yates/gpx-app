@@ -56,3 +56,51 @@ button {
 .link {
   text-decoration: none;
 }
+
+.listing {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+
+  .cell {
+    text-align: left;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: .1rem .2rem;
+  }
+
+  .th-cell {
+    background: #999;
+  }
+  .td-cell {
+    border-bottom: 1px solid #ccc;    
+  }
+
+  .tbody-row {
+    &.selectable:not(.selected):hover {
+      background: #ccc;
+      cursor: pointer;
+    }
+
+    &.selected {
+      color: #fff;
+      background: #00ccff;
+      cursor: pointer;
+    }
+  }
+}
+
+.pager {
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+
+  .pager-label {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0 1rem;
+  }
+}
