@@ -34,7 +34,7 @@ button {
   -webkit-appearance: none;
 }
 
-.button, .link {
+.button {
   border-radius: 4px;
   padding: .8rem 1rem;
   background: #00ccff;
@@ -46,6 +46,11 @@ button {
   &[disabled] {
     opacity: 0.6;
     cursor: default;
+  }
+
+  &.weak {
+    background: #ccc;
+    color: black;
   }
 }
 
@@ -75,7 +80,7 @@ button {
     background: #999;
   }
   .td-cell {
-    border-bottom: 1px solid #ccc;    
+    border-bottom: 1px solid #ccc;
   }
 
   .tbody-row {
@@ -93,14 +98,29 @@ button {
 }
 
 .pager {
+  width: 100%;
   max-width: 400px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   .pager-label {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     padding: 0 1rem;
+  }
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+
+  .tool {
+    &.right {
+      margin-left: auto;
+    }
   }
 }

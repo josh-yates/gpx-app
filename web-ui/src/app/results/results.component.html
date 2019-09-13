@@ -1,5 +1,9 @@
-<a class="link" routerLink="/">< Back</a>
 <h2>Waypoints</h2>
+<div class="toolbar">
+    <a class="link button weak tool" routerLink="/">< Back</a>
+    <button class="button tool right" [disabled]="isGeneratingCsv || !csvURI">Download as CSV</button>
+</div>
+<br />
 <div class="listing-container">
     <table class="listing">
         <colgroup>
