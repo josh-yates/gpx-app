@@ -12,11 +12,13 @@ export class DataExtractorService {
     const lat = element.getAttribute('lat');
     const long = element.getAttribute('lon');
     const nameElements = element.getElementsByTagName('name');
+    const symbolElements = element.getElementsByTagName('sym');
 
     return {
       latitude: lat === null ? null : Number(lat),
       longitude: long === null ? null : Number(long),
-      name: nameElements.length ? nameElements[0].textContent : ''
+      name: nameElements.length ? nameElements[0].textContent : '',
+      symbol: symbolElements.length ? symbolElements[0].textContent : ''
     } as Waypoint;
   }
 
