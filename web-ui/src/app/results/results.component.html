@@ -1,7 +1,7 @@
 <h2>Waypoints</h2>
 <div class="toolbar">
     <a class="link button weak tool" routerLink="/">< Back</a>
-    <button class="button tool right" [disabled]="isGeneratingCsv || !csvURI">Download as CSV</button>
+    <a class="button tool right link" [href]="csvURI" download="gpx-csv-export.csv">Download as CSV</a>
 </div>
 <br />
 <div class="listing-container">

@@ -4,6 +4,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DataStoreService } from '../services/data-store.service';
 import { CsvGeneratorService } from '../services/csv-generator.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-results',
@@ -14,12 +15,13 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly storeService: DataStoreService,
-    private readonly csvService: CsvGeneratorService) { }
+    private readonly csvService: CsvGeneratorService,
+    private readonly domSanitizer: DomSanitizer) { }
 
   private fullWaypoints: Waypoint[] = [];
   private readonly pageSize = 20;
   private readonly destroy$ = new Subject();
-  private csvURI: string;
+  public csvURI: SafeUrl;
 
   public pageNumber = new BehaviorSubject<number>(0);
   public totalPageCount = 1;
@@ -44,7 +46,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.csvService.csvOutput
     .pipe(takeUntil(this.destroy$))
     .subscribe((output: string) => {
-      this.csvURI = encodeURI(`data:text/csv;charset=utf-8,${output}`);
+      this.csvURI = this.domSanitizer.bypassSecurityTrustUrl(encodeURI(`data:text/csv;charset=utf-8,${output}`));
       this.isGeneratingCsv = false;
     });
 
@@ -76,14 +78,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
     } else {
       this.selectedWaypoint = wpt;
     }
-  }
-
-  public downloadCsv(): void {
-    if (this.isGeneratingCsv || !this.csvURI) {
-      return;
-    }
-
-    window.open(this.csvURI);
   }
 
 }

@@ -11,6 +11,10 @@ export class CsvGeneratorService {
   public csvOutput = new Subject<string>();
 
   public generateCsv(waypoints: Waypoint[]): void {
-    this.csvOutput.next('hello\r\n');
+    let csvString = "Name,Latitude,Longitude\r\n";
+
+    csvString += waypoints.map(w => `${w.name.replace(',','')},${w.latitude},${w.longitude}`).join('\r\n');
+
+    this.csvOutput.next(csvString);
   }
 }
